@@ -24,7 +24,7 @@ import java.net.UnknownHostException;
  * @author Bob Molenhouse
  *
  */
-public class CommandControl {
+public class CommandControl extends Thread {
 
     private static Socket socket;
     private static InputStream in;
@@ -38,7 +38,7 @@ public class CommandControl {
     private static EngineCoolantTemperatureCommand coolantTemp;
     private static FuelLevelCommand fuelLevel;
 
-    private static CarData data;
+    private CarData data;
 
     /**
      * Constructor for CommandControl. Attempts to connect to a ELM 327 socket
@@ -63,15 +63,27 @@ public class CommandControl {
         	System.out.println("Could not connect to socket");
         }
     }
+    
+    /**
+     * close that socket dog.
+     * @throws IOException
+     */
+    public void closeSocket() throws IOException{
+    	try{
+    		socket.close();
+    	}catch(IOException e){
+    		e.printStackTrace();
+    	}
+    }
 
     /**
      * runs the commands to the ECU and places the results in the CarData class
      * object.
-     *
-     * @throws InterruptedException
-     * @throws IOException
+     * 
+     * TODO decide if i want every command in their own try catch, or to group together. 
      */
-    public void run() throws IOException, InterruptedException {
+    @Override
+    public void run() {
 
         //set up the ELM 327 to be ready to accept the commands how we want
         try {
@@ -80,26 +92,57 @@ public class CommandControl {
             new TimeoutCommand(125).run(in, out);
             new SelectProtocolCommand(ObdProtocols.AUTO).run(in, out);
         } catch (Exception e) {
-
+        	e.printStackTrace();
         }
 
         //the loop that will send commands and get the goods.
-        while (true) {    //this feels dirty, maybe there is a better way????
-            long start = System.currentTimeMillis();
-            while (System.currentTimeMillis() - start <= 10000) {
-                RPM.run(in, out);
-                MPH.run(in, out);
-                throttlePos.run(in, out);
-                data.setRpm(RPM.getRPM());
-                data.setMph(MPH.getImperialSpeed());
-                data.setThrottlePos(throttlePos.getPercentage());
-            }
-            coolantTemp.run(in, out);
-            data.setCoolandTemp(coolantTemp.getImperialUnit());
-            fuelLevel.run(in, out);
-            data.setFuelLevel(fuelLevel.getFuelLevel());
-        }
-    }
+		while (true) { // this feels dirty, maybe there is a better way????
+			long start = System.currentTimeMillis();
+			try {
+				while (System.currentTimeMillis() - start <= 10000) {
+					try {
+						RPM.run(in, out);
+					} catch (IOException | InterruptedException e) {
+						e.printStackTrace();
+					}
+					try {
+						MPH.run(in, out);
+					} catch (IOException | InterruptedException e) {
+						e.printStackTrace();
+					}
+					try {
+						throttlePos.run(in, out);
+					} catch (IOException | InterruptedException e) {
+						e.printStackTrace();
+					}
+					data.setRpm(RPM.getRPM());
+					data.setMph(MPH.getImperialSpeed());
+					data.setThrottlePos(throttlePos.getPercentage());
+				}
+				try {
+					coolantTemp.run(in, out);
+				} catch (IOException | InterruptedException e) {
+					e.printStackTrace();
+				}
+				data.setCoolandTemp(coolantTemp.getImperialUnit());
+				try {
+					fuelLevel.run(in, out);
+				} catch (IOException | InterruptedException e) {
+					e.printStackTrace();
+				}
+				data.setFuelLevel(fuelLevel.getFuelLevel());
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					socket.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+	}
 
     /**
      * initialize all the command objects.

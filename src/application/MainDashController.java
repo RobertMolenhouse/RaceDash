@@ -31,8 +31,7 @@ public class MainDashController implements Initializable {
     
     public MainDashController() throws IOException, InterruptedException{
     	data = new CarData();
-        control = new CommandControl(data);
-        control.run();
+        
     }
     
     @Override
@@ -46,18 +45,17 @@ public class MainDashController implements Initializable {
         
         try {
 			control = new CommandControl(data);
-		} catch (IOException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         try {
-			control.run();
-		} catch (IOException | InterruptedException e) {
-			// TODO Auto-generated catch block
+			control.start();
+		}catch(Exception e){
 			e.printStackTrace();
 		}
     }    
-    
+
 	@FXML
 	private void bindToTime() {
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0), new EventHandler<ActionEvent>() {
@@ -69,9 +67,8 @@ public class MainDashController implements Initializable {
 				coolantTemp.setText("" + data.getMph());
 				fuelLevel.setText("" + data.getMph());
 			}
-		}),
-    new KeyFrame(Duration.seconds(0.1)));
-  timeline.setCycleCount(Animation.INDEFINITE);
-  timeline.play();
- }
+		}), new KeyFrame(Duration.seconds(0.1)));
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.play();
+	}
 }
