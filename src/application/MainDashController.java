@@ -37,10 +37,10 @@ public class MainDashController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mph.setText("" + data.getMph());
-        rpm.setText("" + data.getMph());
-        throttlePos.setText("" + data.getMph());
-        coolantTemp.setText("" + data.getMph());
-        fuelLevel.setText("" + data.getMph());
+        rpm.setText("" + data.getRpm());
+        throttlePos.setText("" + data.getThrottlePos());
+        coolantTemp.setText("" + data.getCoolandTemp());
+        fuelLevel.setText("" + data.getFuelLevel());
         bindToTime();
         
         try {
@@ -62,10 +62,10 @@ public class MainDashController implements Initializable {
 			@Override
 			public void handle(ActionEvent actionEvent) {
 				mph.setText("" + data.getMph());
-				rpm.setText("" + data.getMph());
-				throttlePos.setText("" + data.getMph());
-				coolantTemp.setText("" + data.getMph());
-				fuelLevel.setText("" + data.getMph());
+				rpm.setText("" + data.getRpm());
+				throttlePos.setText("" + data.getThrottlePos());
+				coolantTemp.setText("" + data.getCoolandTemp());
+				fuelLevel.setText("" + data.getFuelLevel());
 			}
 		}), new KeyFrame(Duration.seconds(0.1)));
 		timeline.setCycleCount(Animation.INDEFINITE);
