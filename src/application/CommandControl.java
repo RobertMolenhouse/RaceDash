@@ -95,52 +95,56 @@ public class CommandControl extends Thread {
         	e.printStackTrace();
         }
 
-        //the loop that will send commands and get the goods.
-		while (true) { // this feels dirty, maybe there is a better way????
-			long start = System.currentTimeMillis();
-			try {
-				while (System.currentTimeMillis() - start <= 10000) {
-					try {
-						RPM.run(in, out);
-					} catch (IOException | InterruptedException e) {
-						e.printStackTrace();
-					}
-					try {
-						MPH.run(in, out);
-					} catch (IOException | InterruptedException e) {
-						e.printStackTrace();
-					}
-					try {
-						throttlePos.run(in, out);
-					} catch (IOException | InterruptedException e) {
-						e.printStackTrace();
-					}
-					data.setRpm(RPM.getRPM());
-					data.setMph(MPH.getImperialSpeed());
-					data.setThrottlePos(throttlePos.getPercentage());
-				}
-				try {
-					coolantTemp.run(in, out);
-				} catch (IOException | InterruptedException e) {
-					e.printStackTrace();
-				}
-				data.setCoolandTemp(coolantTemp.getImperialUnit());
-				try {
-					fuelLevel.run(in, out);
-				} catch (IOException | InterruptedException e) {
-					e.printStackTrace();
-				}
-				data.setFuelLevel(fuelLevel.getFuelLevel());
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					socket.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+        try{
+    		// the loop that will send commands and get the goods.
+    		while (true) { // this feels dirty, maybe there is a better way????
+    			long start = System.currentTimeMillis();
+    				while (System.currentTimeMillis() - start <= 10000) {
+    					try {
+    						RPM.run(in, out);
+    					} catch (IOException | InterruptedException e) {
+    						e.printStackTrace();
+    					}
+    					try {
+    						MPH.run(in, out);
+    					} catch (IOException | InterruptedException e) {
+    						e.printStackTrace();
+    					}
+    					try {
+    						throttlePos.run(in, out);
+    					} catch (IOException | InterruptedException e) {
+    						e.printStackTrace();
+    					}
+    					data.setRpm(RPM.getRPM());
+    					data.setMph(MPH.getImperialSpeed());
+    					data.setThrottlePos(throttlePos.getPercentage());
+    					
+    					System.out.println(data.getRpm());
+    				}
+    				try {
+    					coolantTemp.run(in, out);
+    				} catch (IOException | InterruptedException e) {
+    					e.printStackTrace();
+    				}
+    				data.setCoolandTemp(coolantTemp.getImperialUnit());
+    				try {
+    					fuelLevel.run(in, out);
+    				} catch (IOException | InterruptedException e) {
+    					e.printStackTrace();
+    				}
+    				data.setFuelLevel(fuelLevel.getFuelLevel());
+    			 
+    		}
+    		}catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    			finally {
+    				try {
+    					socket.close();
+    				} catch (IOException e) {
+    					e.printStackTrace();
+    				}
+    			}
 
 	}
 
