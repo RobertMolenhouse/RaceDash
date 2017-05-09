@@ -14,6 +14,7 @@ import com.github.pires.obd.enums.ObdProtocols;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
 /** 
@@ -52,12 +53,14 @@ public class CommandControl {
         initCommands();
 
         //attempt a socket connection
+        try{
         socket = new Socket(elmAddr, elmPort);
         if (socket != null) {
             in = socket.getInputStream();
             out = socket.getOutputStream();
-        } else {
-            System.out.println("Socket connection unsuccessful"); //change this sometime to be more legit.
+        } 
+        }catch (ConnectException e){
+        	System.out.println("Could not connect to socket");
         }
     }
 

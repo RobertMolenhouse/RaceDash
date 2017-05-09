@@ -30,7 +30,7 @@ public class MainDashController implements Initializable {
     private CarData data;
     
     public MainDashController() throws IOException, InterruptedException{
-        data = new CarData();
+    	data = new CarData();
         control = new CommandControl(data);
         control.run();
     }
@@ -42,21 +42,34 @@ public class MainDashController implements Initializable {
         throttlePos.setText("" + data.getMph());
         coolantTemp.setText("" + data.getMph());
         fuelLevel.setText("" + data.getMph());
+        bindToTime();
+        
+        try {
+			control = new CommandControl(data);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			control.run();
+		} catch (IOException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }    
     
-    private void bindToTime() {
-  Timeline timeline = new Timeline(
-    new KeyFrame(Duration.seconds(0),
-      new EventHandler<ActionEvent>() {
-        @Override public void handle(ActionEvent actionEvent) {
-          mph.setText("" + data.getMph());
-          rpm.setText("" + data.getMph());
-          throttlePos.setText("" + data.getMph());
-          coolantTemp.setText("" + data.getMph());
-          fuelLevel.setText("" + data.getMph());
-        }
-      }
-    ),
+	@FXML
+	private void bindToTime() {
+		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0), new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent actionEvent) {
+				mph.setText("" + data.getMph());
+				rpm.setText("" + data.getMph());
+				throttlePos.setText("" + data.getMph());
+				coolantTemp.setText("" + data.getMph());
+				fuelLevel.setText("" + data.getMph());
+			}
+		}),
     new KeyFrame(Duration.seconds(0.1)));
   timeline.setCycleCount(Animation.INDEFINITE);
   timeline.play();
