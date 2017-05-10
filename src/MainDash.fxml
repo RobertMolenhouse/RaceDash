@@ -1,25 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import eu.hansolo.medusa.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" 
-                fx:controller="application.MainDashController">
+<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainDashController">
    <children>
-      <Label layoutX="88.0" layoutY="58.0" text="MPH" />
-      <Label layoutX="89.0" layoutY="126.0" text="RPM" />
-      <Label layoutX="88.0" layoutY="192.0" text="Throttle Pos" />
-      <Label layoutX="88.0" layoutY="259.0" text="Coolant Temp" />
-      <Label layoutX="88.0" layoutY="335.0" text="Fuel Level" />
-      
-      <Button fx:id="mph" layoutX="274.0" layoutY="54.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" />
-      <Button fx:id="rpm" layoutX="274.0" layoutY="122.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" />
-      <Button fx:id="throttlePos" layoutX="274.0" layoutY="188.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" />
-      <Button fx:id="coolantTemp" layoutX="274.0" layoutY="255.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" />
-      <Button fx:id="fuelLevel" layoutX="274.0" layoutY="323.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="111.0" />
+      <Gauge fx:id="rpmGauge" layoutX="275.0" layoutY="115.0" maxValue="8000.0" title="RPM" />
    </children>
 </AnchorPane>

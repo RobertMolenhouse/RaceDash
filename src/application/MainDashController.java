@@ -6,6 +6,11 @@ import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import eu.hansolo.medusa.FGauge;
+import eu.hansolo.medusa.FGaugeBuilder;
+import eu.hansolo.medusa.Gauge;
+import eu.hansolo.medusa.GaugeBuilder;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -16,15 +21,7 @@ import javafx.scene.control.Button;
 
 public class MainDashController implements Initializable {
     @FXML
-    private Button mph;
-    @FXML
-    private Button rpm;
-    @FXML
-    private Button throttlePos;
-    @FXML
-    private Button coolantTemp;
-    @FXML
-    private Button fuelLevel;
+    private Gauge rpmGauge;
     
     private CommandControl control;
     private CarData data;
@@ -36,11 +33,7 @@ public class MainDashController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mph.setText("" + data.getMph());
-        rpm.setText("" + data.getRpm());
-        throttlePos.setText("" + data.getThrottlePos());
-        coolantTemp.setText("" + data.getCoolandTemp());
-        fuelLevel.setText("" + data.getFuelLevel());
+		rpmGauge.setValue(data.getRpm());
         bindToTime();
         
         try {
@@ -61,14 +54,13 @@ public class MainDashController implements Initializable {
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0), new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent actionEvent) {
-				mph.setText("" + data.getMph());
-				rpm.setText("" + data.getRpm());
-				throttlePos.setText("" + data.getThrottlePos());
-				coolantTemp.setText("" + data.getCoolandTemp());
-				fuelLevel.setText("" + data.getFuelLevel());
+				rpmGauge.setValue(data.getRpm());
 			}
-		}), new KeyFrame(Duration.seconds(0.1)));
+		}), new KeyFrame(Duration.seconds(0.03)));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
 	}
+	
+
+
 }

@@ -6,7 +6,7 @@ public class CarData {
 	private float mph;
 	private float throttlePos;
 	private float fuelLevel;
-	private float coolandTemp;
+	private float coolantTemp;
 	
 	public int getRpm() {
 		return rpm;
@@ -33,9 +33,9 @@ public class CarData {
 		this.fuelLevel = f;
 	}
 	public float getCoolandTemp() {
-		return coolandTemp;
+		return coolantTemp;
 	}
 	public void setCoolandTemp(float f) {
-		this.coolandTemp = f;
+		this.coolantTemp = f;
 	}
 }
