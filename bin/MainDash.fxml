@@ -8,8 +8,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainDashController">
+<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="800.0" style="-fx-background-color: #33D7FF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainDashController">
    <children>
-      <Gauge fx:id="rpmGauge" layoutX="275.0" layoutY="115.0" maxValue="8000.0" title="RPM" />
+      <Gauge fx:id="rpmGauge" angleRange="200.0" layoutX="14.0" layoutY="14.0" maxValue="8000.0" needleBehavior="OPTIMIZED" prefHeight="250.0" prefWidth="400.0" skinType="DIGITAL" smoothing="true" title="RPM" />
+      <Gauge fx:id="mphGauge" layoutX="453.0" layoutY="14.0" maxValue="155.0" prefHeight="250.0" prefWidth="400.0" skinType="DIGITAL" smoothing="true" title="MPH" />
+      <Gauge fx:id="tempGauge" layoutX="140.0" layoutY="339.0" maxValue="360.0" prefHeight="127.0" prefWidth="148.0" skinType="SIMPLE_DIGITAL" title="Tmp" />
+      <Gauge fx:id="throttleGauge" layoutX="353.0" layoutY="339.0" prefHeight="127.0" prefWidth="148.0" skinType="SIMPLE_DIGITAL" smoothing="true" title="Throttle" />
+      <Gauge layoutX="579.0" fx:id="fuelGauge" layoutY="339.0" prefHeight="127.0" prefWidth="148.0" skinType="SIMPLE_DIGITAL" title="Fuel" />
    </children>
 </AnchorPane>

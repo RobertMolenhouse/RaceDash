@@ -22,6 +22,14 @@ import javafx.scene.control.Button;
 public class MainDashController implements Initializable {
     @FXML
     private Gauge rpmGauge;
+    @FXML
+    private Gauge mphGauge;
+    @FXML
+    private Gauge tempGauge;
+    @FXML
+    private Gauge throttleGauge;
+    @FXML
+    private Gauge fuelGauge;
     
     private CommandControl control;
     private CarData data;
@@ -34,6 +42,11 @@ public class MainDashController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 		rpmGauge.setValue(data.getRpm());
+		mphGauge.setValue(data.getMph());
+		tempGauge.setValue(data.getCoolandTemp());
+		throttleGauge.setValue(data.getThrottlePos());
+		fuelGauge.setValue(data.getFuelLevel());
+
         bindToTime();
         
         try {
@@ -55,6 +68,10 @@ public class MainDashController implements Initializable {
 			@Override
 			public void handle(ActionEvent actionEvent) {
 				rpmGauge.setValue(data.getRpm());
+				mphGauge.setValue(data.getMph());
+				tempGauge.setValue(data.getCoolandTemp());
+				throttleGauge.setValue(data.getThrottlePos());
+				fuelGauge.setValue(data.getFuelLevel());
 			}
 		}), new KeyFrame(Duration.seconds(0.03)));
 		timeline.setCycleCount(Animation.INDEFINITE);
