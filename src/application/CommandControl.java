@@ -11,6 +11,8 @@ import com.github.pires.obd.commands.protocol.TimeoutCommand;
 import com.github.pires.obd.commands.temperature.EngineCoolantTemperatureCommand;
 import com.github.pires.obd.enums.ObdProtocols;
 
+import javafx.concurrent.Task;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -24,7 +26,7 @@ import java.net.UnknownHostException;
  * @author Bob Molenhouse
  *
  */
-public class CommandControl extends Thread {
+public class CommandControl{
 
     private static Socket socket;
     private static InputStream in;
@@ -82,7 +84,6 @@ public class CommandControl extends Thread {
      * 
      * TODO decide if i want every command in their own try catch, or to group together. 
      */
-    @Override
     public void run() {
 
         //set up the ELM 327 to be ready to accept the commands how we want
