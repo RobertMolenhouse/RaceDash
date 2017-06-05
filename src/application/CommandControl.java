@@ -11,7 +11,6 @@ import com.github.pires.obd.commands.protocol.TimeoutCommand;
 import com.github.pires.obd.commands.temperature.EngineCoolantTemperatureCommand;
 import com.github.pires.obd.enums.ObdProtocols;
 
-import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
 import java.io.IOException;
@@ -42,7 +41,6 @@ public class CommandControl{
     private static FuelLevelCommand fuelLevel;
 
     private CarData data;
-	private Service<Void> secondaryCommands;
 
     /**
      * Constructor for CommandControl. Attempts to connect to a ELM 327 socket
@@ -97,71 +95,47 @@ public class CommandControl{
         } catch (Exception e) {
         	e.printStackTrace();
         }
-        
-        secondaryCommands = new Service<Void>() {
-
-			@Override
-			protected Task<Void> createTask() {
-				return new Task<Void>() {
-
-					@Override
-					protected Void call() throws Exception {
-						
-					while(true){
-						try {
-							long start = System.currentTimeMillis();
-		    				while (System.currentTimeMillis() - start <= 10000) {
-							try {
-	    						MPH.run(in, out);
-	    					} catch (IOException | InterruptedException e) {
-	    						e.printStackTrace();
-	    					}
-	    					try {
-	    						throttlePos.run(in, out);
-	    					} catch (IOException | InterruptedException e) {
-	    						e.printStackTrace();
-	    					}
-	    					data.setMph(MPH.getImperialSpeed());
-	    					data.setThrottlePos(throttlePos.getPercentage());
-		    				}
-	    					try {
-	        					coolantTemp.run(in, out);
-	        				} catch (IOException | InterruptedException e) {
-	        					e.printStackTrace();
-	        				}
-	        				data.setCoolandTemp(coolantTemp.getImperialUnit());
-	        				try {
-	        					fuelLevel.run(in, out);
-	        				} catch (IOException | InterruptedException e) {
-	        					e.printStackTrace();
-	        				}
-	        				data.setFuelLevel(fuelLevel.getFuelLevel());
-						} catch (Exception e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-
-					}
-				};
-			}
-		};
-		secondaryCommands.start();
 
         try{
     		// the loop that will send commands and get the goods.
-    		while (true) {
+    		while (true) { // this feels dirty, maybe there is a better way????
+    			long start = System.currentTimeMillis();
+    				while (System.currentTimeMillis() - start <= 10000) {
     					try {
     						RPM.run(in, out);
     					} catch (IOException | InterruptedException e) {
     						e.printStackTrace();
     					}
-    					
+    					try {
+    						MPH.run(in, out);
+    					} catch (IOException | InterruptedException e) {
+    						e.printStackTrace();
+    					}
+    					try {
+    						throttlePos.run(in, out);
+    					} catch (IOException | InterruptedException e) {
+    						e.printStackTrace();
+    					}
     					data.setRpm(RPM.getRPM());
+    					data.setMph(MPH.getImperialSpeed());
+    					data.setThrottlePos(throttlePos.getPercentage());
+    					
+    					System.out.println(data.getRpm());
     				}
-    				
+    				try {
+    					coolantTemp.run(in, out);
+    				} catch (IOException | InterruptedException e) {
+    					e.printStackTrace();
+    				}
+    				data.setCoolandTemp(coolantTemp.getImperialUnit());
+    				try {
+    					fuelLevel.run(in, out);
+    				} catch (IOException | InterruptedException e) {
+    					e.printStackTrace();
+    				}
+    				data.setFuelLevel(fuelLevel.getFuelLevel());
     			 
-    		
+    		}
     		}catch (Exception e) {
     			e.printStackTrace();
     		}

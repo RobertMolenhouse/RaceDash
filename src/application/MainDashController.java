@@ -67,7 +67,6 @@ public class MainDashController implements Initializable {
 				};
 			}
 		};
-		obdControl.start();
 	}
 
 	@FXML
