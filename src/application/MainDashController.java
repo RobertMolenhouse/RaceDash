@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 
 public class MainDashController implements Initializable {
 	@FXML
@@ -26,6 +27,8 @@ public class MainDashController implements Initializable {
 	private Gauge throttleGauge;
 	@FXML
 	private Gauge fuelGauge;
+	@FXML
+	private Label gear;
 
 	private CommandControl control;
 	private CarData data;
@@ -39,7 +42,8 @@ public class MainDashController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-
+		gear.setText("P");
+		
 		bindToTime();
 
 		obdControl = new Service<Void>() {
@@ -67,6 +71,7 @@ public class MainDashController implements Initializable {
 				};
 			}
 		};
+		obdControl.start();
 	}
 
 	@FXML
@@ -79,6 +84,7 @@ public class MainDashController implements Initializable {
 				tempGauge.setValue(data.getCoolandTemp());
 				throttleGauge.setValue(data.getThrottlePos());
 				fuelGauge.setValue(data.getFuelLevel());
+				gear.setText(data.getGear());
 			}
 		}), new KeyFrame(Duration.seconds(0.03)));
 		timeline.setCycleCount(Animation.INDEFINITE);

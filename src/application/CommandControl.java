@@ -11,8 +11,6 @@ import com.github.pires.obd.commands.protocol.TimeoutCommand;
 import com.github.pires.obd.commands.temperature.EngineCoolantTemperatureCommand;
 import com.github.pires.obd.enums.ObdProtocols;
 
-import javafx.concurrent.Task;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -39,6 +37,7 @@ public class CommandControl{
     private static ThrottlePositionCommand throttlePos;
     private static EngineCoolantTemperatureCommand coolantTemp;
     private static FuelLevelCommand fuelLevel;
+    private static CurrentGearCommand gear;
 
     private CarData data;
 
@@ -116,11 +115,16 @@ public class CommandControl{
     					} catch (IOException | InterruptedException e) {
     						e.printStackTrace();
     					}
+    					try {
+    						gear.run(in, out);
+    					} catch (IOException | InterruptedException e) {
+    						e.printStackTrace();
+    					}
     					data.setRpm(RPM.getRPM());
     					data.setMph(MPH.getImperialSpeed());
     					data.setThrottlePos(throttlePos.getPercentage());
+    					data.setGear(gear.getGear());
     					
-    					System.out.println(data.getRpm());
     				}
     				try {
     					coolantTemp.run(in, out);
@@ -158,5 +162,6 @@ public class CommandControl{
         throttlePos = new ThrottlePositionCommand();
         coolantTemp = new EngineCoolantTemperatureCommand();
         fuelLevel = new FuelLevelCommand();
+        gear = new CurrentGearCommand();
     }
 }

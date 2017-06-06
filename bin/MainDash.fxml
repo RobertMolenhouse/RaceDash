@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import eu.hansolo.medusa.*?>
 <?import java.lang.*?>
@@ -14,6 +15,11 @@
       <Gauge fx:id="mphGauge" layoutX="453.0" layoutY="14.0" maxValue="155.0" prefHeight="250.0" prefWidth="400.0" skinType="DIGITAL" smoothing="true" title="MPH" />
       <Gauge fx:id="tempGauge" layoutX="140.0" layoutY="339.0" maxValue="360.0" prefHeight="127.0" prefWidth="148.0" skinType="SIMPLE_DIGITAL" title="Tmp" />
       <Gauge fx:id="throttleGauge" layoutX="353.0" layoutY="339.0" prefHeight="127.0" prefWidth="148.0" skinType="SIMPLE_DIGITAL" smoothing="true" title="Throttle" />
-      <Gauge layoutX="579.0" fx:id="fuelGauge" layoutY="339.0" prefHeight="127.0" prefWidth="148.0" skinType="SIMPLE_DIGITAL" title="Fuel" />
+      <Gauge fx:id="fuelGauge" layoutX="579.0" layoutY="339.0" prefHeight="127.0" prefWidth="148.0" skinType="SIMPLE_DIGITAL" title="Fuel" />
+      <Label fx:id="gear" layoutX="371.0" layoutY="104.0" text="Label">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

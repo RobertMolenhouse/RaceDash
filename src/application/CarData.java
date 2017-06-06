@@ -7,7 +7,14 @@ public class CarData {
 	private float throttlePos;
 	private float fuelLevel;
 	private float coolantTemp;
+	private String gear;
 	
+	public String getGear() {
+		return gear;
+	}
+	public void setGear(String gear) {
+		this.gear = gear;
+	}
 	public int getRpm() {
 		return rpm;
 	}
