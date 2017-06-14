@@ -97,9 +97,12 @@ public class CommandControl{
 
         try{
     		// the loop that will send commands and get the goods.
-    		while (true) { // this feels dirty, maybe there is a better way????
+        	// TODO catch errors you loser.
+    		while (true) {
     			long start = System.currentTimeMillis();
     				while (System.currentTimeMillis() - start <= 10000) {
+    					long start2 = System.currentTimeMillis();
+    						while (System.currentTimeMillis() - start2 <= 1000){
     					try {
     						RPM.run(in, out);
     					} catch (IOException | InterruptedException e) {
@@ -123,8 +126,13 @@ public class CommandControl{
     					data.setRpm(RPM.getRPM());
     					data.setMph(MPH.getImperialSpeed());
     					data.setThrottlePos(throttlePos.getPercentage());
-    					data.setGear(gear.getGear());
-    					
+    						}
+    						try {
+        						gear.run(in, out);
+        					} catch (IOException | InterruptedException e) {
+        						e.printStackTrace();
+        					}
+    						data.setGear(gear.getGear());
     				}
     				try {
     					coolantTemp.run(in, out);
@@ -138,8 +146,8 @@ public class CommandControl{
     					e.printStackTrace();
     				}
     				data.setFuelLevel(fuelLevel.getFuelLevel());
-    			 
-    		}
+    		}	 
+ 
     		}catch (Exception e) {
     			e.printStackTrace();
     		}

@@ -10,7 +10,7 @@ import com.github.pires.obd.enums.AvailableCommandNames;
  */
 public class CurrentGearCommand extends ObdCommand {
 
-    private String gear = "P";
+    private String gear;
 
     /**
      * Default constructor.
@@ -28,7 +28,7 @@ public class CurrentGearCommand extends ObdCommand {
         super(other);
     }
 
-    /** {@inheritDoc} */
+    /** reads raw data returned to determine the current gear */
     @Override
     protected void performCalculations() {
  

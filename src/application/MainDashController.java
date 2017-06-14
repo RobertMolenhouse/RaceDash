@@ -15,6 +15,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 public class MainDashController implements Initializable {
 	@FXML
@@ -29,6 +31,9 @@ public class MainDashController implements Initializable {
 	private Gauge fuelGauge;
 	@FXML
 	private Label gear;
+	@FXML
+	private Circle g1,g2,y1,y2,r1,r2; //Annunciator "lights"
+	
 
 	private CommandControl control;
 	private CarData data;
@@ -79,7 +84,24 @@ public class MainDashController implements Initializable {
 		Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0), new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent actionEvent) {
-				rpmGauge.setValue(data.getRpm());
+				int rpm = data.getRpm();
+				rpmGauge.setValue(rpm);
+				
+				//check for annunciator lights.
+				if (rpm > 2000) {
+					g1.setFill(Color.web("0x4DFF00"));
+					g2.setFill(Color.web("0x4DFF00"));
+					
+					if (rpm > 3000) {
+						y1.setFill(Color.web("0xFBFF00"));
+						y2.setFill(Color.web("0xFBFF00"));
+
+						if (rpm > 4000) {
+							r1.setFill(Color.web("0xFF0000"));
+							r2.setFill(Color.web("0xFF0000"));
+						}
+					}
+				}
 				mphGauge.setValue(data.getMph());
 				tempGauge.setValue(data.getCoolandTemp());
 				throttleGauge.setValue(data.getThrottlePos());

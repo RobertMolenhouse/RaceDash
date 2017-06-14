@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import eu.hansolo.medusa.*?>
@@ -11,15 +12,21 @@
 
 <AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="800.0" style="-fx-background-color: #33D7FF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainDashController">
    <children>
-      <Gauge fx:id="rpmGauge" angleRange="200.0" layoutX="14.0" layoutY="14.0" maxValue="8000.0" needleBehavior="OPTIMIZED" prefHeight="250.0" prefWidth="400.0" skinType="DIGITAL" smoothing="true" title="RPM" />
-      <Gauge fx:id="mphGauge" layoutX="453.0" layoutY="14.0" maxValue="155.0" prefHeight="250.0" prefWidth="400.0" skinType="DIGITAL" smoothing="true" title="MPH" />
+      <Gauge fx:id="rpmGauge" angleRange="200.0" layoutY="14.0" maxValue="8000.0" needleBehavior="OPTIMIZED" prefHeight="250.0" prefWidth="400.0" skinType="DIGITAL" smoothing="true" title="RPM" />
+      <Gauge fx:id="mphGauge" layoutX="427.0" layoutY="14.0" maxValue="155.0" prefHeight="250.0" prefWidth="400.0" skinType="DIGITAL" smoothing="true" title="MPH" />
       <Gauge fx:id="tempGauge" layoutX="140.0" layoutY="339.0" maxValue="360.0" prefHeight="127.0" prefWidth="148.0" skinType="SIMPLE_DIGITAL" title="Tmp" />
       <Gauge fx:id="throttleGauge" layoutX="353.0" layoutY="339.0" prefHeight="127.0" prefWidth="148.0" skinType="SIMPLE_DIGITAL" smoothing="true" title="Throttle" />
       <Gauge fx:id="fuelGauge" layoutX="579.0" layoutY="339.0" prefHeight="127.0" prefWidth="148.0" skinType="SIMPLE_DIGITAL" title="Fuel" />
-      <Label fx:id="gear" layoutX="371.0" layoutY="104.0" text="Label">
+      <Label fx:id="gear" layoutX="390.0" layoutY="93.0" text="N">
          <font>
-            <Font size="48.0" />
+            <Font size="64.0" />
          </font>
       </Label>
+      <Circle id="g1" fx:id="g1" fill="#0b7215" layoutX="321.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="g2" fx:id="g2" fill="#0b7215" layoutX="491.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="y1" fx:id="y1" fill="#82860b" layoutX="353.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="r1" fx:id="r1" fill="#700d0b" layoutX="390.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="y2" fx:id="y2" fill="#82860b" layoutX="461.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="r2" fx:id="r2" fill="#700d0b" layoutX="427.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
    </children>
 </AnchorPane>
