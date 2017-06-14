@@ -32,24 +32,24 @@ public class CurrentGearCommand extends ObdCommand {
     @Override
     protected void performCalculations() {
  
-    	int byte4 = buffer.get(3);
+    	String byte4 = rawData.substring(6);
         
     	switch (byte4){
-    	case 46 : gear = "P";
+    	case "46" : gear = "P";
     		break;
-    	case 82 : gear = "R";
+    	case "82" : gear = "R";
     		break;
-    	case 80 : gear = "N";
+    	case "80" : gear = "N";
     		break;
-    	case 01 : gear = "1";
+    	case "01" : gear = "1";
     		break;
-    	case 02 : gear = "2";
+    	case "02" : gear = "2";
 			break;
-    	case 03 : gear = "3";
+    	case "03" : gear = "3";
 			break;
-    	case 04 : gear = "4";
+    	case "04" : gear = "4";
 			break;
-    	case 05 : gear = "5";
+    	case "05" : gear = "5";
 			break;
 		default : gear = "N/A";
 			break;
