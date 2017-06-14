@@ -92,6 +92,7 @@ public class MainDashController implements Initializable {
 					g1.setFill(Color.web("0x4DFF00"));
 					g2.setFill(Color.web("0x4DFF00"));
 					
+					
 					if (rpm > 3000) {
 						y1.setFill(Color.web("0xFBFF00"));
 						y2.setFill(Color.web("0xFBFF00"));
@@ -99,8 +100,17 @@ public class MainDashController implements Initializable {
 						if (rpm > 4000) {
 							r1.setFill(Color.web("0xFF0000"));
 							r2.setFill(Color.web("0xFF0000"));
+						}else{
+							r1.setFill(Color.web("0x700d0b"));
+							r2.setFill(Color.web("0x700d0b"));
 						}
+					}else{
+						y1.setFill(Color.web("0x82860b"));
+						y2.setFill(Color.web("0x82860b"));
 					}
+				}else{
+					g1.setFill(Color.web("0x0b7215"));
+					g2.setFill(Color.web("0x0b7215"));
 				}
 				mphGauge.setValue(data.getMph());
 				tempGauge.setValue(data.getCoolandTemp());
