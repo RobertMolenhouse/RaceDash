@@ -27,7 +27,6 @@ import java.net.UnknownHostException;
 public class CommandControl{
 
     private static Socket socket;
-    private static USBComm usb;
     private static InputStream in;
     private static OutputStream out;
     private static String elmAddr = "192.168.0.10";
@@ -56,13 +55,26 @@ public class CommandControl{
 
         //attempt a socket connection
         try{
-        	usb = new USBComm();
-        }catch(Exception e){
-        	
+        socket = new Socket(elmAddr, elmPort);
+        if (socket != null) {
+            in = socket.getInputStream();
+            out = socket.getOutputStream();
+        } 
+        }catch (ConnectException e){
+        	System.out.println("Could not connect to socket");
         }
-        
-        in = usb.getInputStream();
-        out = usb.getOutputStream();
+    }
+    
+    /**
+     * close that socket dog.
+     * @throws IOException
+     */
+    public void closeSocket() throws IOException{
+    	try{
+    		socket.close();
+    	}catch(IOException e){
+    		e.printStackTrace();
+    	}
     }
 
     /**
@@ -140,7 +152,11 @@ public class CommandControl{
     			e.printStackTrace();
     		}
     			finally {
-    				usb.closeUSB();
+    				try {
+    					socket.close();
+    				} catch (IOException e) {
+    					e.printStackTrace();
+    				}
     			}
 
 	}

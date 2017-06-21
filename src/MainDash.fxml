@@ -22,11 +22,71 @@
             <Font size="64.0" />
          </font>
       </Label>
-      <Circle id="g1" fx:id="g1" fill="#0b7215" layoutX="321.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle id="g2" fx:id="g2" fill="#0b7215" layoutX="491.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle id="y1" fx:id="y1" fill="#82860b" layoutX="353.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle id="r1" fx:id="r1" fill="#700d0b" layoutX="390.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle id="y2" fx:id="y2" fill="#82860b" layoutX="461.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle id="r2" fx:id="r2" fill="#700d0b" layoutX="427.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle id="g1" fx:id="g1" fill="#0b7215" layoutX="321.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect></Circle>
+      <Circle id="g2" fx:id="g2" fill="#0b7215" layoutX="491.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect></Circle>
+      <Circle id="y1" fx:id="y1" fill="#82860b" layoutX="353.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect></Circle>
+      <Circle id="r1" fx:id="r1" fill="#700d0b" layoutX="390.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect></Circle>
+      <Circle id="y2" fx:id="y2" fill="#82860b" layoutX="461.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect></Circle>
+      <Circle id="r2" fx:id="r2" fill="#700d0b" layoutX="427.0" layoutY="24.0" radius="10.0" stroke="BLACK" strokeType="INSIDE">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect></Circle>
    </children>
 </AnchorPane>
