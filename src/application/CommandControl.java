@@ -11,12 +11,20 @@ import com.github.pires.obd.commands.protocol.TimeoutCommand;
 import com.github.pires.obd.commands.temperature.EngineCoolantTemperatureCommand;
 import com.github.pires.obd.enums.ObdProtocols;
 
+import gnu.io.CommPortIdentifier;
+import gnu.io.SerialPort;
+import gnu.io.SerialPortEvent;
+import gnu.io.SerialPortEventListener;
+
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 /** 
  * backend Class.  Sets up a socket with an ELM 327 chip.  Also sends commands
  * and receives responses from the ECU.
@@ -24,14 +32,20 @@ import java.net.UnknownHostException;
  * @author Bob Molenhouse
  *
  */
-public class CommandControl{
+public class CommandControl implements SerialPortEventListener{
 
-    private static Socket socket;
-    private static USBComm usb;
-    private static InputStream in;
-    private static OutputStream out;
-    private static String elmAddr = "192.168.0.10";
-    private static int elmPort = 35000;
+	SerialPort serialPort;
+
+	private static final String PORT_NAMES[] = { "/dev/ttyUSB0", // Linux
+			"COM6", // Windows
+	};
+	
+	private static final int TIME_OUT = 2000;
+	private static final int DATA_RATE = 38400;
+;
+    private InputStream in;
+    private OutputStream out;
+    private SerialPortEventListener listener;
 
     private static RPMCommand RPM;
     private static SpeedCommand MPH;
@@ -49,20 +63,12 @@ public class CommandControl{
      * @throws UnknownHostException
      * @throws IOException
      */
-    public CommandControl(CarData data) throws UnknownHostException, IOException {
+    public CommandControl(CarData data)  throws UnknownHostException, IOException {
         this.data = data;
 
         initCommands();
-
-        //attempt a socket connection
-        try{
-        	usb = new USBComm();
-        }catch(Exception e){
-        	
-        }
-        
-        in = usb.getInputStream();
-        out = usb.getOutputStream();
+        initialize(); //connect to serial port
+    
     }
 
     /**
@@ -140,7 +146,7 @@ public class CommandControl{
     			e.printStackTrace();
     		}
     			finally {
-    				usb.closeUSB();
+    				close();
     			}
 
 	}
@@ -156,4 +162,53 @@ public class CommandControl{
         fuelLevel = new FuelLevelCommand();
         gear = new CurrentGearCommand();
     }
-}
+    
+    public void initialize() {
+        CommPortIdentifier portId = null;
+        Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
+
+        //First, Find an instance of serial port as set in PORT_NAMES.
+        while (portEnum.hasMoreElements()) {
+            CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
+            for (String portName : PORT_NAMES) {
+                if (currPortId.getName().equals(portName)) {
+                    portId = currPortId;
+                    break;
+                }
+            }
+        }
+        if (portId == null) {
+            System.out.println("Could not find COM port.");
+            return;
+        }
+
+        try {
+            serialPort = (SerialPort) portId.open(this.getClass().getName(),
+                    TIME_OUT);
+            serialPort.setSerialPortParams(DATA_RATE,
+                    SerialPort.DATABITS_8,
+                    SerialPort.STOPBITS_1,
+                    SerialPort.PARITY_NONE);
+
+            // open the streams
+            in = serialPort.getInputStream();
+            out = serialPort.getOutputStream();
+            
+            serialPort.addEventListener(listener);
+            serialPort.notifyOnDataAvailable(true);
+        } catch (Exception e) {
+            System.err.println(e.toString());
+        }
+    }
+    public synchronized void close() {
+        if (serialPort != null) {
+            serialPort.removeEventListener();
+            serialPort.close();
+        }
+    }
+
+    public synchronized void serialEvent(SerialPortEvent oEvent) {
+        if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE) {
+            listener.notifyAll();
+        }
+}}
