@@ -1,6 +1,5 @@
 package application;
 
-import com.github.pires.obd.commands.ObdCommand;
 import com.github.pires.obd.enums.AvailableCommandNames;
 
 /**
@@ -19,19 +18,12 @@ public class CurrentGearCommand extends ObdCommand {
         super("22 1e1f1"); //Hopefully this is right
     }
 
-    /**
-     * Copy ctor.
-     *
-     * @param other 
-     */
-    public CurrentGearCommand(CurrentGearCommand other) {
-        super(other);
-    }
 
     /** reads raw data returned to determine the current gear */
     @Override
     protected void performCalculations() {
  
+    	if(!rawData.isEmpty()){
     	String byte4 = rawData.substring(6);
         
     	switch (byte4){
@@ -54,6 +46,9 @@ public class CurrentGearCommand extends ObdCommand {
 		default : gear = "N/A";
 			break;
     		
+    	}
+    	}else{
+    		gear = "N/A";
     	}
     }
 

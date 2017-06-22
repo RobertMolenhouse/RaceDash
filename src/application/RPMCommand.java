@@ -29,7 +29,7 @@ public class RPMCommand extends ObdCommand {
      * Default ctor.
      */
     public RPMCommand(SerialPortEventListener event) {
-        super("01 0C", event);
+        super("01 0C");
     }
 
     
@@ -38,7 +38,9 @@ public class RPMCommand extends ObdCommand {
     @Override
     protected void performCalculations() {
         // ignore first two bytes [41 0C] of the response((A*256)+B)/4
+    	if(!buffer.isEmpty()){
         rpm = (buffer.get(2) * 256 + buffer.get(3)) / 4;
+    	}
     }
 
     /** {@inheritDoc} */

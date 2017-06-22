@@ -40,10 +40,10 @@ public abstract class ObdCommand {
      *
      * @param command the command to send
      */
-    public ObdCommand(String command, SerialPortEventListener event ) {
+    public ObdCommand(String command) {
         this.cmd = command;
         this.buffer = new ArrayList<>();
-        this.event = event;
+     
     }
 
     /**
@@ -69,7 +69,6 @@ public abstract class ObdCommand {
         synchronized (ObdCommand.class) {//Only one command can write and read a data in one time.
             start = System.currentTimeMillis();
             sendCommand(out);
-            event.wait();
             readResult(in);
             end = System.currentTimeMillis();
         }
@@ -122,7 +121,7 @@ public abstract class ObdCommand {
      */
     protected void readResult(InputStream in) throws IOException {
         readRawData(in);
-        checkForErrors();
+      //  checkForErrors();
         fillBuffer();
         performCalculations();
     }
@@ -140,20 +139,20 @@ public abstract class ObdCommand {
         rawData = rawData.replaceAll("\\s", ""); //removes all [ \t\n\x0B\f\r]
         rawData = rawData.replaceAll("(BUS INIT)|(BUSINIT)|(\\.)", "");
 
-        if (!rawData.matches("([0-9A-F])+")) {
-            throw new NonNumericResponseException(rawData);
-        }
-
-        // read string each two chars
-        buffer.clear();
-        int begin = 0;
-        int end = 2;
-        while (end <= rawData.length()) {
-            buffer.add(Integer.decode("0x" + rawData.substring(begin, end)));
-            begin = end;
-            end += 2;
-        }
-    }
+		if (!rawData.matches("([0-9A-F])+")) {
+			buffer.clear();
+		} else {
+			// read string each two chars
+			buffer.clear();
+			int begin = 0;
+			int end = 2;
+			while (end <= rawData.length()) {
+				buffer.add(Integer.decode("0x" + rawData.substring(begin, end)));
+				begin = end;
+				end += 2;
+			}
+		}
+	}
 
     /**
      * <p>
