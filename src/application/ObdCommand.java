@@ -33,7 +33,6 @@ public abstract class ObdCommand {
     protected Long responseDelayInMs = null;
     private long start;
     private long end;
-    private SerialPortEventListener event;
 
     /**
      * Default ctor to use

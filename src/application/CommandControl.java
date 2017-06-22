@@ -89,52 +89,58 @@ public class CommandControl implements SerialPortEventListener{
         	e.printStackTrace();
         }
 
-        try{
-    		// the loop that will send commands and get the goods.
-        	// TODO catch errors you loser.
-    		while (true) {
-    			long start = System.currentTimeMillis();
-    				while (System.currentTimeMillis() - start <= 10000) {
-    					try {
-    						RPM.run(in, out);
-    					} catch (IOException | InterruptedException e) {
-    						e.printStackTrace();
-    					}
-    					try {
-    						MPH.run(in, out);
-    					} catch (IOException | InterruptedException e) {
-    						e.printStackTrace();
-    					}
-    						
-    						try {
-        						gear.run(in, out);
-        					} catch (IOException | InterruptedException e) {
-        						e.printStackTrace();
-        					}
-    						data.setGear(gear.getGear());
-//    					try {
-//    						throttlePos.run(in, out);
-//    					} catch (IOException | InterruptedException e) {
-//    						e.printStackTrace();
-//    					}
-    					
-    					data.setRpm(RPM.getRPM());
-    					data.setMph(MPH.getImperialSpeed());
-//    					data.setThrottlePos(throttlePos.getPercentage());
+		try {
+			// the loop that will send commands and get the goods.
+			// TODO catch errors you loser.
+			while (true) {
+				long start = System.currentTimeMillis();
+				while (System.currentTimeMillis() - start <= 10000) {
+					try {
+						RPM.run(in, out);
+					} catch (IOException | InterruptedException e) {
+						e.printStackTrace();
+					}
+					try {
+						MPH.run(in, out);
+					} catch (IOException | InterruptedException e) {
+						e.printStackTrace();
+					}
+
+					try {
+						gear.run(in, out);
+					} catch (IOException | InterruptedException e) {
+						e.printStackTrace();
+					}
+					data.setGear(gear.getGear());
+					 try {
+					 throttlePos.run(in, out);
+					 } catch (IOException | InterruptedException e) {
+					 e.printStackTrace();
+					 }
+
+					if (RPM.getRPM() > 1) {
+						data.setRpm(RPM.getRPM());
+					}
+					if (MPH.getImperialSpeed() > 0) {
+						data.setMph(MPH.getImperialSpeed());
+					}
+					if(throttlePos.getPercentage() > 0){
+					 data.setThrottlePos(throttlePos.getPercentage());
+					}
+				}
+
+    				try {
+    					coolantTemp.run(in, out);
+    				} catch (IOException | InterruptedException e) {
+    					e.printStackTrace();
     				}
-    				
-//    				try {
-//    					coolantTemp.run(in, out);
-//    				} catch (IOException | InterruptedException e) {
-//    					e.printStackTrace();
-//    				}
-//    				data.setCoolandTemp(coolantTemp.getImperialUnit());
-//    				try {
-//    					fuelLevel.run(in, out);
-//    				} catch (IOException | InterruptedException e) {
-//    					e.printStackTrace();
-//    				}
-//    				data.setFuelLevel(fuelLevel.getFuelLevel());
+    				data.setCoolandTemp(coolantTemp.getImperialUnit());
+    				try {
+    					fuelLevel.run(in, out);
+    				} catch (IOException | InterruptedException e) {
+    					e.printStackTrace();
+    				}
+    				data.setFuelLevel(fuelLevel.getFuelLevel());
    			 
     		
     		}}catch (Exception e) {
