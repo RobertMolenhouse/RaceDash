@@ -1,6 +1,5 @@
 package application;
 
-import com.github.pires.obd.commands.PercentageObdCommand;
 import com.github.pires.obd.enums.AvailableCommandNames;
 
 public class FuelLevelCommand extends PercentageObdCommand {
