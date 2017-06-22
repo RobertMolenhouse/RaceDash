@@ -1,7 +1,7 @@
 package application;
 
 import com.github.pires.obd.commands.SpeedCommand;
-import com.github.pires.obd.commands.engine.RPMCommand;
+//import com.github.pires.obd.commands.engine.RPMCommand;
 import com.github.pires.obd.commands.engine.ThrottlePositionCommand;
 import com.github.pires.obd.commands.fuel.FuelLevelCommand;
 import com.github.pires.obd.commands.protocol.EchoOffCommand;
@@ -93,55 +93,55 @@ public class CommandControl implements SerialPortEventListener{
     		// the loop that will send commands and get the goods.
         	// TODO catch errors you loser.
     		while (true) {
-    			long start = System.currentTimeMillis();
-    				while (System.currentTimeMillis() - start <= 10000) {
-    					long start2 = System.currentTimeMillis();
-    						while (System.currentTimeMillis() - start2 <= 1000){
+//    			long start = System.currentTimeMillis();
+//    				while (System.currentTimeMillis() - start <= 10000) {
+//    					long start2 = System.currentTimeMillis();
+//    						while (System.currentTimeMillis() - start2 <= 1000){
     					try {
     						RPM.run(in, out);
     					} catch (IOException | InterruptedException e) {
     						e.printStackTrace();
     					}
-    					try {
-    						MPH.run(in, out);
-    					} catch (IOException | InterruptedException e) {
-    						e.printStackTrace();
-    					}
-    					try {
-    						throttlePos.run(in, out);
-    					} catch (IOException | InterruptedException e) {
-    						e.printStackTrace();
-    					}
-    					try {
-    						gear.run(in, out);
-    					} catch (IOException | InterruptedException e) {
-    						e.printStackTrace();
-    					}
-    					data.setRpm(RPM.getRPM());
-    					data.setMph(MPH.getImperialSpeed());
-    					data.setThrottlePos(throttlePos.getPercentage());
-    						}
-    						try {
-        						gear.run(in, out);
-        					} catch (IOException | InterruptedException e) {
-        						e.printStackTrace();
-        					}
-    						data.setGear(gear.getGear());
-    				}
-    				try {
-    					coolantTemp.run(in, out);
-    				} catch (IOException | InterruptedException e) {
-    					e.printStackTrace();
-    				}
-    				data.setCoolandTemp(coolantTemp.getImperialUnit());
-    				try {
-    					fuelLevel.run(in, out);
-    				} catch (IOException | InterruptedException e) {
-    					e.printStackTrace();
-    				}
-    				data.setFuelLevel(fuelLevel.getFuelLevel());
-    		}	 
- 
+//    					try {
+//    						MPH.run(in, out);
+//    					} catch (IOException | InterruptedException e) {
+//    						e.printStackTrace();
+//    					}
+//    					try {
+//    						throttlePos.run(in, out);
+//    					} catch (IOException | InterruptedException e) {
+//    						e.printStackTrace();
+//    					}
+//    					try {
+//    						gear.run(in, out);
+//    					} catch (IOException | InterruptedException e) {
+//    						e.printStackTrace();
+//    					}
+    					data.setRpm(RPM.getRPM());}
+//    					data.setMph(MPH.getImperialSpeed());
+//    					data.setThrottlePos(throttlePos.getPercentage());
+//    						}
+//    						try {
+//        						gear.run(in, out);
+//        					} catch (IOException | InterruptedException e) {
+//        						e.printStackTrace();
+//        					}
+//    						data.setGear(gear.getGear());
+//    				}
+//    				try {
+//    					coolantTemp.run(in, out);
+//    				} catch (IOException | InterruptedException e) {
+//    					e.printStackTrace();
+//    				}
+//    				data.setCoolandTemp(coolantTemp.getImperialUnit());
+//    				try {
+//    					fuelLevel.run(in, out);
+//    				} catch (IOException | InterruptedException e) {
+//    					e.printStackTrace();
+//    				}
+//    				data.setFuelLevel(fuelLevel.getFuelLevel());
+//   		}	 
+// 
     		}catch (Exception e) {
     			e.printStackTrace();
     		}
@@ -155,7 +155,7 @@ public class CommandControl implements SerialPortEventListener{
      * initialize all the command objects.
      */
     private void initCommands() {
-        RPM = new RPMCommand();
+        RPM = new RPMCommand(listener);
         MPH = new SpeedCommand();
         throttlePos = new ThrottlePositionCommand();
         coolantTemp = new EngineCoolantTemperatureCommand();
