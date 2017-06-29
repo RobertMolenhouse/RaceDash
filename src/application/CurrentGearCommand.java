@@ -23,7 +23,7 @@ public class CurrentGearCommand extends ObdCommand {
     @Override
     protected void performCalculations() {
  
-    	if(!rawData.isEmpty()){
+    	if(!rawData.isEmpty() && rawData.length() >= 7){
     	String byte4 = rawData.substring(6);
         
     	switch (byte4){
@@ -43,12 +43,8 @@ public class CurrentGearCommand extends ObdCommand {
 			break;
     	case "05" : gear = "5";
 			break;
-		default : gear = "N/A";
-			break;
     		
     	}
-    	}else{
-    		gear = "N/A";
     	}
     }
 
