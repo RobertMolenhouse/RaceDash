@@ -23,9 +23,9 @@
             </LinearGradient>
          </foregroundPaint></Gauge>
       <Gauge fx:id="mphGauge" layoutX="427.0" layoutY="14.0" maxValue="155.0" prefHeight="250.0" prefWidth="400.0" skinType="MODERN" smoothing="true" title="MPH" />
-      <Gauge fx:id="tempGauge" layoutX="140.0" layoutY="339.0" maxValue="360.0" prefHeight="127.0" prefWidth="148.0" skinType="SPACE_X" title="Tmp" />
-      <Gauge fx:id="throttleGauge" layoutX="353.0" layoutY="339.0" prefHeight="127.0" prefWidth="148.0" skinType="SPACE_X" smoothing="true" title="Throttle" />
-      <Gauge fx:id="fuelGauge" layoutX="579.0" layoutY="339.0" prefHeight="127.0" prefWidth="148.0" skinType="SPACE_X" title="Fuel" />
+      <Gauge fx:id="tempGauge" layoutX="14.0" layoutY="339.0" maxValue="360.0" prefHeight="127.0" prefWidth="148.0" skinType="SPACE_X" title="Cool Tmp" />
+      <Gauge fx:id="throttleGauge" layoutX="343.0" layoutY="201.0" prefHeight="127.0" prefWidth="148.0" skinType="SPACE_X" smoothing="true" title="Throttle" />
+      <Gauge fx:id="fuelGauge" layoutX="343.0" layoutY="339.0" prefHeight="127.0" prefWidth="148.0" skinType="SPACE_X" title="Fuel" />
       <Label fx:id="gear" layoutX="390.0" layoutY="93.0" text="N" textFill="#9ddbe3fc">
          <font>
             <Font size="64.0" />
@@ -97,5 +97,6 @@
                </light>
             </Lighting>
          </effect></Circle>
+      <Gauge fx:id="oilTemp" layoutX="162.0" layoutY="339.0" maxValue="360.0" prefHeight="127.0" prefWidth="148.0" skinType="SPACE_X" title="Oil Tmp" />
    </children>
 </AnchorPane>

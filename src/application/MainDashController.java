@@ -25,6 +25,8 @@ public class MainDashController implements Initializable {
 	private Gauge mphGauge;
 	@FXML
 	private Gauge tempGauge;
+	@FXML 
+	private Gauge oilTemp;
 	@FXML
 	private Gauge throttleGauge;
 	@FXML
@@ -89,28 +91,37 @@ public class MainDashController implements Initializable {
 				
 				//check for annunciator lights.
 				if (rpm > 2000) {
-					g1.setFill(Color.web("0x4DFF00"));
-					g2.setFill(Color.web("0x4DFF00"));
-					
-					
+					g1.setFill(Color.web("0x3FFF2F"));
+					g1.setOpacity(1);
+					g2.setFill(Color.web("0x3FFF2F"));
+					g2.setOpacity(1);
 					if (rpm > 3000) {
 						y1.setFill(Color.web("0xFBFF00"));
+						y1.setOpacity(1);
 						y2.setFill(Color.web("0xFBFF00"));
-
+						y2.setOpacity(1);
 						if (rpm > 4000) {
 							r1.setFill(Color.web("0xFF0000"));
+							r1.setOpacity(1);
 							r2.setFill(Color.web("0xFF0000"));
+							r2.setOpacity(1);
 						}else{
 							r1.setFill(Color.web("0x700d0b"));
+							r1.setOpacity(0.25);
 							r2.setFill(Color.web("0x700d0b"));
+							r2.setOpacity(0.25);
 						}
 					}else{
 						y1.setFill(Color.web("0x82860b"));
+						y1.setOpacity(0.25);
 						y2.setFill(Color.web("0x82860b"));
+						y2.setOpacity(0.25);
 					}
 				}else{
 					g1.setFill(Color.web("0x0b7215"));
+					g1.setOpacity(0.25);
 					g2.setFill(Color.web("0x0b7215"));
+					g2.setOpacity(0.25);
 				}
 				mphGauge.setValue(data.getMph());
 				tempGauge.setValue(data.getCoolandTemp());

@@ -1,4 +1,4 @@
-package application;
+package commands;
 
 public class PercentageObdCommand extends ObdCommand{
 	 protected float percentage = 0f;

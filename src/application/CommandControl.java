@@ -11,6 +11,13 @@ import com.github.pires.obd.commands.protocol.TimeoutCommand;
 //import com.github.pires.obd.commands.temperature.EngineCoolantTemperatureCommand;
 import com.github.pires.obd.enums.ObdProtocols;
 
+import commands.CurrentGearCommand;
+import commands.EngineCoolantTemperatureCommand;
+import commands.FuelLevelCommand;
+import commands.OilTempCommand;
+import commands.RPMCommand;
+import commands.SpeedCommand;
+import commands.ThrottlePositionCommand;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
@@ -53,6 +60,7 @@ public class CommandControl implements SerialPortEventListener{
     private static EngineCoolantTemperatureCommand coolantTemp;
     private static FuelLevelCommand fuelLevel;
     private static CurrentGearCommand gear;
+    private static OilTempCommand oilTemp;
 
     private CarData data;
 
@@ -141,7 +149,12 @@ public class CommandControl implements SerialPortEventListener{
     					e.printStackTrace();
     				}
     				data.setFuelLevel(fuelLevel.getFuelLevel());
-   			 
+    				try {
+    					oilTemp.run(in, out);
+    				} catch (IOException | InterruptedException e) {
+    					e.printStackTrace();
+    				}
+    				data.setOilTemp(oilTemp.getImperialUnit());
     		
     		}}catch (Exception e) {
     			e.printStackTrace();
@@ -162,6 +175,7 @@ public class CommandControl implements SerialPortEventListener{
         coolantTemp = new EngineCoolantTemperatureCommand();
         fuelLevel = new FuelLevelCommand();
         gear = new CurrentGearCommand();
+        oilTemp = new OilTempCommand();
     }
     
     public void initialize() {

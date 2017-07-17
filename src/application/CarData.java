@@ -7,8 +7,16 @@ public class CarData {
 	private float throttlePos;
 	private float fuelLevel;
 	private float coolantTemp;
+	private float oilTemp;
 	private String gear;
 	
+	
+	public float getOilTemp() {
+		return oilTemp;
+	}
+	public void setOilTemp(float oilTemp) {
+		this.oilTemp = oilTemp;
+	}
 	public String getGear() {
 		return gear;
 	}

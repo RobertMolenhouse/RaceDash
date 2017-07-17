@@ -1,4 +1,4 @@
-package application;
+package commands;
 
 import com.github.pires.obd.commands.SystemOfUnits;
 
