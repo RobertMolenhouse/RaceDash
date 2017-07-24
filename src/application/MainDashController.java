@@ -5,16 +5,22 @@ import javafx.animation.*;
 import javafx.util.Duration;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.sun.glass.events.TouchEvent;
+
 import eu.hansolo.medusa.Gauge;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -34,7 +40,11 @@ public class MainDashController implements Initializable {
 	@FXML
 	private Label gear;
 	@FXML
+	private Pane ALPane;
+	@FXML
 	private Circle g1,g2,y1,y2,r1,r2; //Annunciator "lights"
+	@FXML
+	private Button exitButton;
 	
 
 	private CommandControl control;
@@ -50,6 +60,7 @@ public class MainDashController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		gear.setText("P");
+		exitButton.setOnAction(e -> Platform.exit());
 		
 		bindToTime();
 
@@ -127,11 +138,17 @@ public class MainDashController implements Initializable {
 				tempGauge.setValue(data.getCoolandTemp());
 				throttleGauge.setValue(data.getThrottlePos());
 				fuelGauge.setValue(data.getFuelLevel());
+				oilTemp.setValue(data.getOilTemp());
 				gear.setText(data.getGear());
 			}
 		}), new KeyFrame(Duration.seconds(0.03)));
 		timeline.setCycleCount(Animation.INDEFINITE);
 		timeline.play();
+	}
+	
+	@FXML
+	private void ALHandler(ActionEvent event){
+		
 	}
 
 }

@@ -23,9 +23,8 @@
             </LinearGradient>
          </foregroundPaint></Gauge>
       <Gauge fx:id="mphGauge" layoutX="427.0" layoutY="14.0" maxValue="155.0" prefHeight="250.0" prefWidth="400.0" skinType="MODERN" smoothing="true" title="MPH" />
-      <Gauge fx:id="tempGauge" layoutX="14.0" layoutY="339.0" maxValue="360.0" prefHeight="127.0" prefWidth="148.0" skinType="SPACE_X" title="Cool Tmp" />
-      <Gauge fx:id="throttleGauge" layoutX="343.0" layoutY="201.0" prefHeight="127.0" prefWidth="148.0" skinType="SPACE_X" smoothing="true" title="Throttle" />
-      <Gauge fx:id="fuelGauge" layoutX="343.0" layoutY="339.0" prefHeight="127.0" prefWidth="148.0" skinType="SPACE_X" title="Fuel" />
+      <Gauge fx:id="tempGauge" layoutX="14.0" layoutY="339.0" maxValue="360.0" prefHeight="127.0" prefWidth="148.0" skinType="MODERN" title="Cool Tmp" />
+      <Gauge fx:id="throttleGauge" layoutX="343.0" layoutY="201.0" prefHeight="127.0" prefWidth="148.0" skinType="TILE_SPARK_LINE" smoothing="true" title="Throttle" />
       <Label fx:id="gear" layoutX="390.0" layoutY="93.0" text="N" textFill="#9ddbe3fc">
          <font>
             <Font size="64.0" />
@@ -97,6 +96,20 @@
                </light>
             </Lighting>
          </effect></Circle>
-      <Gauge fx:id="oilTemp" layoutX="162.0" layoutY="339.0" maxValue="360.0" prefHeight="127.0" prefWidth="148.0" skinType="SPACE_X" title="Oil Tmp" />
+      <Gauge fx:id="oilTemp" layoutX="162.0" layoutY="339.0" maxValue="360.0" prefHeight="127.0" prefWidth="148.0" skinType="MODERN" title="Oil Tmp" />
+      <Label layoutX="14.0" layoutY="17.0" opacity="0.25" text="MIL" textFill="#ffc342">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Label>
+      <Pane fx:id="viewPane" layoutX="627.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="exitButton" layoutX="162.0" layoutY="2.0" mnemonicParsing="false" text="X" textFill="#bf1111" />
+         </children></Pane>
+      <Gauge fx:id="fuelGauge" layoutX="34.0" layoutY="240.0" prefHeight="80.0" prefWidth="72.0" skinType="LEVEL" title="Fuel" />
+      <Pane fx:id="ALPane" layoutX="283.0" layoutY="3.0" onTouchPressed="#ALHandler" prefHeight="42.0" prefWidth="234.0" />
    </children>
 </AnchorPane>
