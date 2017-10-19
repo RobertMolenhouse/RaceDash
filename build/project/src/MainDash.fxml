@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="800.0" style="-fx-background-color: #33D7FF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainDashController">
+<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="800.0" style="-fx-background-color: #33D7FF;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainDashPanel">
    <children>
       <Gauge fx:id="rpmGauge" angleRange="200.0" layoutY="14.0" maxValue="8000.0" needleBehavior="OPTIMIZED" prefHeight="250.0" prefWidth="400.0" skinType="DIGITAL" smoothing="true" title="RPM" />
       <Gauge fx:id="mphGauge" layoutX="427.0" layoutY="14.0" maxValue="155.0" prefHeight="250.0" prefWidth="400.0" skinType="DIGITAL" smoothing="true" title="MPH" />
